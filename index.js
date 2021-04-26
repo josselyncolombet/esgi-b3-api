@@ -1,5 +1,6 @@
 var express = require('express')
 var routerUsers = require('./routers/users')
+var routerHotels = require('./routers/hotels')
 var mongoose = require('mongoose')
 
 mongoose.Promise = Promise
@@ -12,6 +13,7 @@ db.once('open', () => console.log('status :', db.states[db._readyState]))
 var app = express()
 
 app.use(express.json())
+app.use('/hotels', routerHotels)
 app.use('/users', routerUsers)
 
 app.listen(3001, () => {

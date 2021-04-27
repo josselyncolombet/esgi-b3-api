@@ -15,8 +15,8 @@ var app = express()
 app.use(express.json())
 app.use('/hotels', routerHotels)
 app.use('/users', routerUsers)
-
-app.listen(3001, () => {
-    console.log('Server is running on 3001')
+const PORT = process.env.PORT || 3001
+app.listen(PORT, () => {
+    console.log('Server is running on', PORT)
 })
 

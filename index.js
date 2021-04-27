@@ -13,6 +13,9 @@ db.once('open', () => console.log('status :', db.states[db._readyState]))
 var app = express()
 
 app.use(express.json())
+app.get('/', (req,res) => {
+    res.json('Ok')
+})
 app.use('/hotels', routerHotels)
 app.use('/users', routerUsers)
 const PORT = process.env.PORT || 3001

@@ -1,6 +1,7 @@
-var mongoose = require('mongoose')
+const mongoose = require('mongoose')
+const roomModel = require('./room')
 
-var bookingSchema = new mongoose.Schema({
+const bookingSchema = new mongoose.Schema({
     rooms: {
         type: Array,
         required: true
@@ -15,7 +16,7 @@ var bookingSchema = new mongoose.Schema({
     },
     price: {
         type: Number,
-        required: true
+        required: false
     },
     comment: {
         type: String,
@@ -24,6 +25,15 @@ var bookingSchema = new mongoose.Schema({
 })
 
 
+bookingSchema.pre('save', async function (next) {
+    let price = 0
+    for(let i = 0; i < this.rooms.length; i++){
+        let room = await roomModel.findOne({_id:this.rooms[i]})
+        price+= room.price
+    }
+    this.price = price
+    next()
+})
 
 var bookingModel = mongoose.model('booking', bookingSchema)
 

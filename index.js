@@ -21,7 +21,11 @@ app.use('/users', routerUsers)
 app.use('/rooms', routerRooms)
 app.use('/bookings', routerBookings)
 
-app.listen(3001, () => {
-    console.log('Server is running on', 3001)
+app.get('/status', (req,res) => res.json({dbstatus: db.states[db._readyState]}))
+
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+    console.log('Server is running on', PORT)
 })
 

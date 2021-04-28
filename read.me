@@ -8,27 +8,5 @@
 - jwt
 - cors
 
-hotels : {
-    name,
-    address, ajouter un $text index dans mongo
-    rate,
-    rooms,
-    furnitures
-}
-
-room : {
-    hotel : ObjectId(hotel),
-    number,
-    floor,
-    beds,
-    furnitures:[]
-    price,
-}
-
-booking : {
-    rooms : [ObjectId(room)],
-    date,
-    date,
-    price,
-    comment
-}
+A FAIRE : 
+creer le hook pre save dans user pour verifier si un email n'est pas déjà enregistré

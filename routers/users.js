@@ -15,11 +15,15 @@ router.get('/', async (request, response) => {
 })
 
 /* https://api.monsuperhotel.com/users*/
-router.post('/', (request, response) => {
+router.post('/', async (request, response) => {
     let { body } = request
-    var user = new userModel(body)
-    user.save()
-    response.json({ user })
+    try{
+        var user = new userModel(body)
+        await user.save()
+        response.status(200).send({ user })
+    }catch(e){
+        response.status(409).send({error: e.message})
+    }  
 })
 
 /* https://api.monsuperhotel.com/users/59bfd752z*/

@@ -1,6 +1,6 @@
-var mongoose = require('mongoose')
+const mongoose = require('mongoose')
 
-var userSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true
@@ -17,6 +17,12 @@ var userSchema = new mongoose.Schema({
         type: String,
         required: true
     }
+})
+
+userSchema.pre('save', async function(next){
+    let user = await userModel.findOne({email: this.email})
+    if(user) next(Error('User already exist'))
+    else next()
 })
 
 var userModel = mongoose.model('user', userSchema)

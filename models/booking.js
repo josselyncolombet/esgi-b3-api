@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const roomModel = require('./room')
+const moment = require('moment')
 
 const bookingSchema = new mongoose.Schema({
     rooms: {
@@ -31,7 +32,12 @@ bookingSchema.pre('save', async function (next) {
         let room = await roomModel.findOne({_id:this.rooms[i]})
         price+= room.price
     }
-    this.price = price
+    let arrival = moment(this.dateArrival, 'YYYY-MM-DD')
+    let departure = moment(this.dateDeparture, 'YYYY-MM-DD')
+    this.dateArrival = arrival
+    this.dateDeparture = departure
+    let duration = departure.diff(arrival, 'days')
+    this.price = price * duration
     next()
 })
 

@@ -22,6 +22,10 @@ const bookingSchema = new mongoose.Schema({
     comment: {
         type: String,
         required: false
+    },
+    user:{
+        type: mongoose.Types.ObjectId,
+        required: true
     }
 })
 

@@ -1,4 +1,5 @@
 var mongoose = require('mongoose')
+const roomModel = require('./room')
 
 var hotelSchema = new mongoose.Schema({
     name: {
@@ -25,6 +26,10 @@ var hotelSchema = new mongoose.Schema({
         type: Object,
         required: true
     }
+})
+
+hotelSchema.post('findOneAndDelete',  async function(doc){
+    await roomModel.deleteMany({hotel:doc._id})
 })
 
 var hotelModel = mongoose.model('hotel', hotelSchema)

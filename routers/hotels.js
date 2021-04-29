@@ -31,7 +31,7 @@ router.put('/:id', async(request, response) => {
 
 /* https://api.monsuperhotel.com/hotels/59bfd752z*/
 router.delete('/:id', async(request, response) => {
-    var hotel = await hotelModel.findOneAndRemove({_id:request.params.id})
+    var hotel = await hotelModel.findOneAndDelete({_id:request.params.id})
     response.status(200).send()
 })
 

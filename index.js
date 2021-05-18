@@ -3,6 +3,7 @@ var routerUsers = require('./routers/users')
 var routerHotels = require('./routers/hotels')
 var routerRooms = require('./routers/rooms')
 var routerBookings = require('./routers/bookings')
+var routerAuthentication = require('./routers/authentication')
 var mongoose = require('mongoose')
 
 mongoose.Promise = Promise
@@ -20,6 +21,7 @@ app.use('/hotels', routerHotels)
 app.use('/users', routerUsers)
 app.use('/rooms', routerRooms)
 app.use('/bookings', routerBookings)
+app.use('/login', routerAuthentication)
 
 app.get('/status', (req,res) => res.json({dbstatus: db.states[db._readyState]}))
 

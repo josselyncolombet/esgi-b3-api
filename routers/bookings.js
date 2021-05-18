@@ -1,6 +1,7 @@
-var express = require('express')
-var router = express.Router()
-var bookingModel = require('../models/booking')
+const express = require('express')
+const router = express.Router()
+const bookingModel = require('../models/booking')
+const {checkToken} = require('../utils/token')
 
 /* https://api.monsuperhotel.com/bookings/59bfd752z */
 router.get('/:id', async(request, response) => {
@@ -9,8 +10,8 @@ router.get('/:id', async(request, response) => {
 })
 
 /* https://api.monsuperhotel.com/bookings*/
-router.get('/', async (request, response) => {
-    var bookings = await bookingModel.find({}) // == "SELECT * from bookings"
+router.get('/', checkToken, async (request, response) => {
+    var bookings = await bookingModel.find({user: request.user._id}) // == "SELECT * from bookings WHERE user = req.token"
     response.json({ bookings })
 })
 
